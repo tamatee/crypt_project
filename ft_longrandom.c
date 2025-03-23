@@ -1,21 +1,39 @@
 #include"crypto.h"
 
-// for safe gen in Linux
-// long long ft_longrandom() {
-//     int fd = open("/dev/random", O_RDONLY);
-//     long long random;
-//     read(fd, &random, sizeof(random));
-//     close(fd);
-//     return random;
-// }
+long long ft_llrandom() {
+    HCRYPTPROV hProv;
+    long long num;
 
-long long ft_longrandom() {
-    return ((long long)rand() << 32) | rand();
+    // Acquire cryptographic context
+    if (!CryptAcquireContext(&hProv, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT)) {
+        printf("CryptAcquireContext failed!\n");
+        exit(1);
+    }
+
+    // Generate random number
+    if (!CryptGenRandom(hProv, sizeof(num), (BYTE*)&num)) {
+        printf("CryptGenRandom failed!\n");
+        exit(1);
+    }
+
+    CryptReleaseContext(hProv, 0);
+    return num;
 }
 
-int main()
-{
-    printf("%lld\n", ft_longrandom());
-    printf("Minimum value of long long: %lld\n", LLONG_MIN);
-    printf("Maximum value of long long: %lld\n", LLONG_MAX);
+unsigned long long ft_ullrandom() {
+    HCRYPTPROV hProv;
+    unsigned long long num;
+
+    if (!CryptAcquireContext(&hProv, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT)) {
+        printf("CryptAcquireContext failed!\n");
+        exit(1);
+    }
+
+    if (!CryptGenRandom(hProv, sizeof(num), (BYTE*)&num)) {
+        printf("CryptGenRandom failed!\n");
+        exit(1);
+    }
+
+    CryptReleaseContext(hProv, 0);
+    return num;
 }

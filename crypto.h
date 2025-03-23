@@ -2,7 +2,7 @@
 #include <windows.h>
 #include <wincrypt.h>
 
-long long ft_gcd(long long a, long long b);
-long long ft_inversegcd(long long a, long long b, long long c);
-long long ft_llrandom();
+unsigned long long ft_gcd(unsigned long long a, unsigned long long b);
+unsigned long long ft_inversegcd(unsigned long long a, unsigned long long b, unsigned long long c);
+unsigned long long ft_llrandom();
 unsigned long long ft_ullrandom();
