@@ -6,7 +6,7 @@
 #include <climits>
 using namespace std;
 
-typedef long long LL;  // เปลี่ยนจาก unsigned long long เป็น signed long long
+typedef long long LL;
 const int TEST_TIMES = 10;
 
 // Function to compute GCD
