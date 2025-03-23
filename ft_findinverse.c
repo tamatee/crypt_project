@@ -1,3 +1,4 @@
+#include"crypto.h"
 unsigned long long ft_findinverse(unsigned long long a, unsigned long long mod) {
     unsigned  long long m0 = mod;
     unsigned  long long b1 = 1;
@@ -14,7 +15,7 @@ unsigned long long ft_findinverse(unsigned long long a, unsigned long long mod) 
     }
 
     if (b2 < 0)
-        (b2 += m0) % m0;
+        b2 = b2 + m0 % m0;
 
     return b2;
 }
