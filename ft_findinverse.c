@@ -1,11 +1,11 @@
-long long ft_findinverse(long a, long mod) {
-    long long m0 = mod;
-    long long b1 = 1;
-    long long b2 = 0;
+unsigned long long ft_findinverse(unsigned long long a, unsigned long long mod) {
+    unsigned  long long m0 = mod;
+    unsigned  long long b1 = 1;
+    unsigned  long long b2 = 0;
 
     while (mod > 1)  {
-        long long q = a / mod;
-        long long t = mod;
+        unsigned  long long q = a / mod;
+        unsigned  long long t = mod;
         mod = a % mod;
         a = t;
         t = b2;
