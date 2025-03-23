@@ -1,2 +1,9 @@
-int ft_gcd(int a, int b);
-int ft_inversegcd(int a, int b, int c);
+#include<stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <limits.h>
+long long ft_gcd(long long a, long long b);
+long long ft_inversegcd(long long a, long long b, long long c);
+long long ft_longrandom();
