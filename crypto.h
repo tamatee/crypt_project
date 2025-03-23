@@ -1,6 +1,7 @@
 #include<stdbool.h>
 #include <windows.h>
 #include <wincrypt.h>
+#include<stdio.h>
 
 unsigned long long ft_gcd(unsigned long long a, unsigned long long b);
 unsigned long long ft_inversegcd(unsigned long long a, unsigned long long b, unsigned long long c);
