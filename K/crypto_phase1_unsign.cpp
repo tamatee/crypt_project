@@ -116,7 +116,7 @@ void GenRandomNoWithInverse(ULL n) {
 int main() {
     srand(time(0));
 
-    int bitLength = 10;
+    int bitLength = 16;
     string filename = "randomdata.bin";  // Create a binary file with random data
 
     // Example: Generate prime number from file

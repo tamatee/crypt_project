@@ -117,7 +117,7 @@ void GenRandomNoWithInverse(LL n) {
 int main() {
     srand(time(0));
 
-    int bitLength = 10;
+    int bitLength = 16;
     string filename = "randomdata.bin";
 
     LL prime = GenPrime(bitLength, filename);
