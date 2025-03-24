@@ -8,7 +8,6 @@ using namespace std;
 typedef unsigned long long ULL;
 const int TEST_TIMES = 10;
 
-// Function to compute GCD
 ULL GCD(ULL a, ULL b) {
     while (b != 0) {
         ULL temp = b;
@@ -18,7 +17,7 @@ ULL GCD(ULL a, ULL b) {
     return a;
 }
 
-// Function to compute modular inverse using Extended Euclidean Algorithm
+// using Extended Euclidean Algorithm
 ULL FindInverse(ULL a, ULL mod) {
     ULL m0 = mod, t, q;
     ULL x0 = 0, x1 = 1;
@@ -37,7 +36,7 @@ ULL FindInverse(ULL a, ULL mod) {
     return x1;
 }
 
-// Fast Exponentiation a^b mod n
+// a^b mod n
 ULL FastExpo(ULL a, ULL b, ULL n) {
     ULL result = 1;
     a = a % n;
@@ -94,7 +93,7 @@ ULL GenPrime(int bitLength, const string &filename) {
             cout << "Generated Prime: " << num << endl;
             return num;
         }
-        num += 2;  // Only check odd numbers
+        num += 2;  // check odd numbers
     }
 
     cerr << "No prime found in range.\n";
@@ -117,9 +116,8 @@ int main() {
     srand(time(0));
 
     int bitLength = 16;
-    string filename = "randomdata.bin";  // Create a binary file with random data
+    string filename = "randomdata.bin";
 
-    // Example: Generate prime number from file
     ULL prime = GenPrime(bitLength, filename);
 
     // Generate e, e^-1, n
@@ -127,7 +125,7 @@ int main() {
         GenRandomNoWithInverse(prime);
     }
 
-    // Overflow check
+    // check overflow
     cout << "\nMaximum value of unsigned long long: " << ULLONG_MAX << endl;
     cout << "Bit size: " << sizeof(ULL) * 8 << " bits\n";
 
