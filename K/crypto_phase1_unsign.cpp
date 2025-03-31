@@ -41,8 +41,8 @@ ULL FastExpo(ULL a, ULL b, ULL n) {
     ULL result = 1;
     a = a % n;
     while (b > 0) {
-        if (b & 1) result = (result * a) % n;
-        b = b >> 1;
+        if (b % 2 == 1) result = (result * a) % n;
+        b = b / 2;
         a = (a * a) % n;
     }
     return result;
@@ -115,19 +115,15 @@ void GenRandomNoWithInverse(ULL n) {
 int main() {
     srand(time(0));
 
-    int bitLength = 16;
-    string filename = "randomdata.bin";
+    // int bitLength = 16;
+    // string filename = "randomdata.bin";
 
-    ULL prime = GenPrime(bitLength, filename);
-
-    // Generate e, e^-1, n
-    if (prime != 0) {
-        GenRandomNoWithInverse(prime);
-    }
-
-    // check overflow
-    cout << "\nMaximum value of unsigned long long: " << ULLONG_MAX << endl;
-    cout << "Bit size: " << sizeof(ULL) * 8 << " bits\n";
+    // ULL prime = GenPrime(bitLength, filename);
+    cout << "fast: " << FastExpo(28ULL, 13ULL, 143ULL) << endl;
+    // // Generate e, e^-1, n
+    // if (prime != 0) {
+    //     GenRandomNoWithInverse(prime);
+    // }
 
     return 0;
 }
