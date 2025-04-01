@@ -6,6 +6,7 @@
 using namespace std;
 
 typedef unsigned long long ULL;
+typedef long long LL;
 const int TEST_TIMES = 10;
 
 ULL GCD(ULL a, ULL b) {
@@ -42,7 +43,7 @@ ULL FastExpo(ULL a, ULL b, ULL n) {
     a = a % n;
     while (b > 0) {
         if (b % 2 == 1) result = (result * a) % n;
-        b = b / 2;
+        b /= 2;
         a = (a * a) % n;
     }
     return result;
@@ -120,6 +121,7 @@ int main() {
 
     // ULL prime = GenPrime(bitLength, filename);
     cout << "fast: " << FastExpo(28ULL, 13ULL, 143ULL) << endl;
+    cout << "inverse: " << FindInverse(39ULL, 11ULL) << endl;
     // // Generate e, e^-1, n
     // if (prime != 0) {
     //     GenRandomNoWithInverse(prime);
