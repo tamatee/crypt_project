@@ -1,5 +1,7 @@
 #python
 __pycache__/
+keys/
+
 # Prerequisites
 *.d
 
