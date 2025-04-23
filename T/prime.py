@@ -1,7 +1,7 @@
 from utils import *
 
-def GenPrime(filename, bitlength):
-    num = get_num(filename, bitlength)
+def GenPrime(bitlength):
+    num = get_num(bitlength)
     if num % 2 != 0 and IsPrime((num - 1) // 2):
         return num
     else:

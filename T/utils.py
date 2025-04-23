@@ -1,4 +1,6 @@
 import secrets
+import pickle
+
 def get_coprime(p):
     phi = p - 1
     while True:
@@ -13,24 +15,30 @@ def GCD(a, b):
         a = temp
     return a
 
-def get_num(filename, n):
-    with open(filename, 'rb') as file:
-        byte_data = file.read()
+# def get_num(filename, n):
+#     with open(filename, 'rb') as file:
+#         byte_data = file.read()
 
-    bit_string = ''.join(format(byte, '08b') for byte in byte_data)
-    # print(bit_string)
+#     bit_string = ''.join(format(byte, '08b') for byte in byte_data)
+#     # print(bit_string)
 
-    first_one_index = bit_string.find('1')
-    # print('first_one_index', first_one_index)
-    if first_one_index == -1:
-        return '0' * (n)
+#     first_one_index = bit_string.find('1')
+#     # print('first_one_index', first_one_index)
+#     if first_one_index == -1:
+#         return '0' * (n)
 
-    output_get = bit_string[first_one_index:n]
-    pad_len = n - len(output_get)
-    # print(pad_len)
-    output_get = (output_get, output_get + '0'*pad_len)[pad_len >= 0]
-    print("binary_get: " + output_get + '\nlen: ' + str(len(output_get)))
-    return  int(output_get, 2)
+#     output_get = bit_string[first_one_index:n]
+#     pad_len = n - len(output_get)
+#     # print(pad_len)
+#     output_get = (output_get, output_get + '0'*pad_len)[pad_len >= 0]
+#     print("binary_get: " + output_get + '\nlen: ' + str(len(output_get)))
+#     return  int(output_get, 2)
+
+def get_num(bitlength):
+    lower = 2**(bitlength - 1)
+    upper = 2**bitlength
+    res = secrets.randbelow(upper - lower) + lower
+    return res
 
 def FastExpo(base, exp, mod):
     if mod == 0:
@@ -64,3 +72,11 @@ def extended_gcd(a, b):
         x = y1
         y = x1 - (a // b) * y1
         return (g, x, y)
+
+def save_key(file_path, key_data):
+    with open(file_path, 'wb') as f:
+        pickle.dump(key_data, f)
+
+def load_key(file_path):
+    with open(file_path, 'rb') as f:
+        return pickle.load(f)
