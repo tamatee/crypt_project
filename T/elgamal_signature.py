@@ -1,4 +1,5 @@
 from signature_utils import *
+from utils import load_key
 import math
 
 def RWhash(binary_message, p):
@@ -23,7 +24,8 @@ def RWhash(binary_message, p):
 # Example usage
 binary_message_source = get_binary_from_file('input/meme.jpg')
 binary_message_decrypted = get_binary_from_file('decrypted/output.jpg')
-p = 249078238052881220731626214354725054599
+pk = load_key('keys/public_key.pem')
+p = pk[0]
 
 hash_source = RWhash(binary_message_source, p)
 hash_decrypted = RWhash(binary_message_decrypted, p)

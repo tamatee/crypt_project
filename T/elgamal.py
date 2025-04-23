@@ -25,8 +25,8 @@ def ElgamalKeyGen(prime):
     private_key = (prime, gen, secret_num)
     public_key = (prime, gen, y)
 
-    save_key('keys/private_key.txt', private_key)
-    save_key('keys/public_key.txt', public_key)
+    save_key('keys/private_key.pem', private_key)
+    save_key('keys/public_key.pem', public_key)
     return private_key, public_key
 
 def ElgamalEncrypt(input_path, pk):
