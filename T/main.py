@@ -11,12 +11,12 @@ print("Private Key:", private_key)
 print("Public Key:", public_key)
 
 # Step 2: Encryption
-plaintext = 'input/text.txt'
+plaintext = 'input/meme.jpg'
 print("Plaintext: ", plaintext)
 ciphertext = ElgamalEncrypt(plaintext, public_key)
 print("Ciphertext (A,B):", ciphertext)
 cipher_path = 'encrypted/ciphertext.dat'
 
 # Step 3: Decryption
-decrypted_message = ElgamalDecrypt(cipher_path, private_key, 'decrypted/output.txt')
+decrypted_message = ElgamalDecrypt(cipher_path, private_key, 'decrypted/output.jpg')
 print("Decrypted Message:", decrypted_message)

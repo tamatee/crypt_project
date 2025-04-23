@@ -17,3 +17,9 @@ def compression_function(prev_hash, block_value, p):
     C = (B << 2) % p
     print(f"C: {C}")
     return C
+
+def get_binary_from_file(filepath):
+    with open(filepath, 'rb') as file:
+        byte_data = file.read()
+    bit_string = ''.join(format(byte, '08b') for byte in byte_data)
+    return bit_string

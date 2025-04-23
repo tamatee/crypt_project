@@ -1,4 +1,4 @@
-from signature_utils import binary_to_blocks, binary_blocks_to_int, compression_function
+from signature_utils import *
 import math
 
 def RWhash(binary_message, p):
@@ -21,8 +21,14 @@ def RWhash(binary_message, p):
     return H
 
 # Example usage
-binary_message = '11011010110100100101001001001001110100111111111011'
-p = 3001
-final_hash = RWhash(binary_message, p)
-print("Final Hash (decimal):", final_hash)
-print("Final Hash (hex):", hex(final_hash))
+binary_message_source = get_binary_from_file('input/meme.jpg')
+binary_message_decrypted = get_binary_from_file('decrypted/output.jpg')
+p = 249078238052881220731626214354725054599
+
+hash_source = RWhash(binary_message_source, p)
+hash_decrypted = RWhash(binary_message_decrypted, p)
+
+print("Source Hash (decimal):", hash_source)
+print("Source Hash (hex):", hex(hash_source))
+print("Decrypted Hash (decimal):", hash_decrypted)
+print("Decrypted Hash (hex):", hex(hash_decrypted))
