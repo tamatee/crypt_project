@@ -3,7 +3,6 @@ import sympy
 import os
 import pickle
 
-# ------------------ Helper Functions ------------------
 def modinv(a, m):
     return pow(a, -1, m)
 
@@ -18,7 +17,6 @@ def load_key(file_path):
     with open(file_path, 'rb') as f:
         return pickle.load(f)
 
-# ------------------ 1. Key Generation ------------------
 def ElgamalKeyGen(key_size=128):
     p = generate_large_prime(key_size)
     g = random.randint(2, p - 2)
@@ -33,7 +31,6 @@ def ElgamalKeyGen(key_size=128):
     print("Keys generated and saved in 'keys/' folder.")
     return private_key, public_key
 
-# ------------------ 2. Encryption ------------------
 def ElgamalEncrypt(public_key, input_path):
     p, g, h = public_key
 
@@ -53,7 +50,6 @@ def ElgamalEncrypt(public_key, input_path):
         pickle.dump(ciphertext, f)
     print("File encrypted and saved as 'encrypted/ciphertext.dat'")
 
-# ------------------ 3. Decryption ------------------
 def ElgamalDecrypt(private_key, ciphertext_file, output_path):
     p, g, x = private_key
 
@@ -71,7 +67,6 @@ def ElgamalDecrypt(private_key, ciphertext_file, output_path):
         f.write(plaintext_bytes)
     print(f"File decrypted and saved as '{output_path}'")
 
-# ------------------ Example Usage ------------------
 if __name__ == '__main__':
     os.makedirs('keys', exist_ok=True)
     os.makedirs('encrypted', exist_ok=True)
@@ -81,11 +76,11 @@ if __name__ == '__main__':
     input_filename = input("Enter input filename (e.g., input/message.txt): ")
     output_filename = input("Enter output filename for decrypted file (e.g., decrypted/output_message.txt): ")
 
-    # Step 1: Generate keys
+    # Generate keys
     private_key, public_key = ElgamalKeyGen()
 
-    # Step 2: Encrypt file ที่ระบุ
+    # Encrypt file
     ElgamalEncrypt(public_key, input_filename)
 
-    # Step 3: Decrypt file แล้วบันทึกตามชื่อที่กำหนด
+    # Decrypt file
     ElgamalDecrypt(private_key, 'encrypted/ciphertext.dat', output_filename)
