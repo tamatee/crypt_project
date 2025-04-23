@@ -2,7 +2,7 @@ from utils import *
 
 def GenPrime(bitlength):
     num = get_num(bitlength)
-    if num % 2 != 0 and IsPrime((num - 1) // 2):
+    if num % 2 != 0 and IsPrime(num) and IsPrime((num - 1) // 2):
         return num
     else:
         prime = find_safe_prime(num)
@@ -37,9 +37,12 @@ def IsPrime(num):
 def GenerateGenerator(num):
     a = (num-1) // 2
     gen = secrets.randbelow(num - 2) + 2
-    if FastExpo(gen, a, num) != 1:
+    b = FastExpo(gen, a, num)
+    print("b:", b, "gen:", gen)
+    if b != 1:
         print("Generator: ", gen)
         return gen
     else:
-        print("Generator: ", gen)
-        return -gen % num
+        res = -gen % num
+        print("INV-Generator: ", res)
+        return res
