@@ -83,6 +83,7 @@ ULL GenPrime(int bitLength, const string &filename) {
     // Align to correct bit length and ensure bitLength-th bit is 1
     ULL minVal = 1ULL << (bitLength - 1);
     ULL maxVal = (1ULL << bitLength) - 1;
+    cout <<"num: " << maxVal << endl;
 
     num = num | minVal;  // Ensure highest bit is 1
     num = num & maxVal;  // Ensure not exceeding bit length
@@ -116,10 +117,10 @@ void GenRandomNoWithInverse(ULL n) {
 int main() {
     srand(time(0));
 
-    // int bitLength = 16;
-    // string filename = "randomdata.bin";
+    int bitLength = 32;
+    string filename = "rand.png";
 
-    // ULL prime = GenPrime(bitLength, filename);
+    ULL prime = GenPrime(bitLength, filename);
     cout << "fast: " << FastExpo(28ULL, 13ULL, 143ULL) << endl;
     cout << "inverse: " << FindInverse(39ULL, 11ULL) << endl;
     // // Generate e, e^-1, n

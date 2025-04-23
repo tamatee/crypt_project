@@ -4,6 +4,8 @@
 #include <ctime>
 #include <cmath>
 #include <climits>
+#include <bitset>
+#include <vector>
 using namespace std;
 
 typedef long long LL;
@@ -21,16 +23,18 @@ LL GCD(LL a, LL b)
     return a;
 }
 
-LL power(LL base, LL exp) {
-        LL res = base;
+LL power(LL base, LL exp)
+{
+    LL res = base;
 
-        while(exp > 1) {
-            res *= base;
-            exp--;
-        }
-
-        return res;
+    while (exp > 1)
+    {
+        res *= base;
+        exp--;
     }
+
+    return res;
+}
 
 // Function to compute modular inverse using Extended Euclidean Algorithm
 LL FindInverse(LL a, LL mod)
@@ -104,24 +108,41 @@ LL getNum(const string &file, int n)
     while (in.read(&byte, 1))
     {
         unsigned char b = static_cast<unsigned char>(byte);
-        res += bitset<8>(b).to_string(); // get 8-bit binary string
+        res += bitset<8>(b).to_string(); // แปลงเป็น binary string 8-bit
     }
     in.close();
 
     cout << "Bit from File: " << res << endl;
 
-    // Pad or truncate to desired bit length
+    size_t firstOne = res.find('1');
+    if (firstOne == string::npos)
+    {
+        cerr << "No '1' found in file data!" << endl;
+        return 0;
+    }
+
+    res = res.substr(firstOne);
+    // cout << "res  " + res << endl;
     if ((int)res.length() < n)
     {
         cout << "Before padding: " << res << endl;
-        res.append(n - res.length(), '0');
+        res.append(n - res.length(), '0'); // เติม 0 ด้านท้าย
     }
     else
     {
         res = res.substr(0, n);
     }
 
-    return stoll(res, nullptr, 2); // binary to long long
+    LL num = stoll(res, nullptr, 2);
+
+    LL maxVal = (1LL << n) - 1;
+    if (num > maxVal)
+    {
+        cout << "Value exceeded max limit, adjusting..." << endl;
+        num = maxVal;
+    }
+
+    return num;
 }
 
 static long findPrime(LL start, LL bound)
@@ -136,7 +157,6 @@ static long findPrime(LL start, LL bound)
             cout << "out of bound" << endl;
             exit(1);
         }
-        // System.out.println(start);
         else
             start += 2;
     }
@@ -146,7 +166,7 @@ static long findPrime(LL start, LL bound)
 // Generate random number from file and find prime >= number
 LL GenPrime(const string &file, int n)
 {
-    n %= 33;
+    // n %= 33;
     LL num = getNum(file, n);
     cout << "Number from file: " << num << endl;
 
@@ -178,19 +198,81 @@ void GenRandomNoWithInverse(LL n)
     cout << "e: " << e << "\ne^-1 mod n: " << inv << "\nn: " << n << endl;
 }
 
+bool IsSafePrime(LL p)
+{
+    // Check if p is prime and (p-1)/2 is prime
+    if (IsPrime(p) && IsPrime((p - 1) / 2))
+    {
+        return true;
+    }
+    return false;
+}
+
+LL findGenerator(LL p)
+{
+    vector<LL> fact;
+    LL phi = p - 1, n = phi;
+    for (LL i = 2; i * i <= n; ++i)
+        if (n % i == 0)
+        {
+            fact.push_back(i);
+            while (n % i == 0)
+                n /= i;
+        }
+    if (n > 1)
+        fact.push_back(n);
+
+    // Try random candidates
+    for (int attempt = 0; attempt < 100; ++attempt)
+    {
+        LL res = rand() % (p - 2) + 2; // random in [2, p-1]
+        bool ok = true;
+        for (LL i = 0; i < fact.size() && ok; ++i)
+            ok &= FastExpo(res, phi / fact[i], p) != 1;
+        if (ok)
+            return res;
+    }
+    return -1;
+}
+
+LL getGenerator(LL p)
+{
+    if (IsSafePrime(p))
+    {
+        LL g;
+        do
+        {
+            g = rand() % (p - 1) + 2; // Generate a number in the range [1, p-1]
+            cout << "g: " + g << endl;
+        } while (FastExpo(g, (p - 1) / 2, p) == 1); // Ensure g is a generator
+
+        return g;
+    }
+    else
+    {
+        return FindGenerator(p); // If not a safe prime, return generator from findGenerator
+    }
+}
+
+LL getGenerator(LL p)
+{
+    if (IsPrime((p - 1) / 2))
+    {
+        LL g = rand() % (p - 1) + 2;
+        return FastExpo(g, (p - 1) / 2, p);
+    }
+    else
+        return findGenerator(p);
+}
+
 int main()
 {
     srand(time(0));
 
-    int bitLength = 32;
+    int bitLength = 31;
     string file = "randomdata.bin";
 
     LL prime = GenPrime(file, bitLength);
-    // cout << "power: "<< power(2,2) << endl;
-    // cout << "fast: " << FastExpo(28ULL, 13ULL, 143ULL) << endl;
-    // cout << "inverse: " << FindInverse(39LL, 11LL) << endl;
-    // cout << "is prime: " << IsPrime(prime) << endl;
-    // // Generate e, e^-1, n
     if (prime != 0)
     {
         GenRandomNoWithInverse(prime);
