@@ -42,7 +42,7 @@ def get_num(bitlength):
 
 def FastExpo(base, exp, mod):
     if mod == 0:
-        raise ValueError("Modulo cannot be zero.")
+        print("Modulo cannot be zero.")
     if exp < 0:
         base = mod_inv(base, mod)
         exp = -exp
@@ -57,6 +57,20 @@ def FastExpo(base, exp, mod):
         exp //= 2
 
     return result
+
+def FindInverse(a, m):
+    m0 = m
+    b1, b2 = 1, 0
+
+    while m > 1:
+        q = a // m
+        a, m = m, a % m
+        b1, b2 = b2, b1 - q * b2
+
+    if b2 < 0:
+        b2 = (b2 + m0) % m0
+
+    return b2
 
 def mod_inv(a, m):
     g, x, y = extended_gcd(a, m)
