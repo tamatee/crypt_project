@@ -58,20 +58,6 @@ def FastExpo(base, exp, mod):
 
     return result
 
-def FindInverse(a, m):
-    m0 = m
-    b1, b2 = 1, 0
-
-    while m > 1:
-        q = a // m
-        a, m = m, a % m
-        b1, b2 = b2, b1 - q * b2
-
-    if b2 < 0:
-        b2 = (b2 + m0) % m0
-
-    return b2
-
 def mod_inv(a, m):
     g, x, y = extended_gcd(a, m)
     if g != 1:
