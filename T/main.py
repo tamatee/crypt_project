@@ -1,5 +1,3 @@
-import math
-
 from elgamal import ElgamalKeyGen, ElgamalEncrypt, ElgamalDecrypt
 from prime import GenPrime, GenerateGenerator
 
