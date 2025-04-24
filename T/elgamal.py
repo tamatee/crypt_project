@@ -12,7 +12,7 @@ def ElgamalKeyGen(prime):
     save_key('keys/public_key.txt', public_key)
     return private_key, public_key
 
-def ElgamalEncrypt(input_path, pk):
+def ElgamalEncrypt(input_path, pk, output_path='encrypted/ciphertext.dat'):
     prime, generator, y = pk
 
     with open(input_path, 'rb') as f:
@@ -26,9 +26,9 @@ def ElgamalEncrypt(input_path, pk):
         cipher_text_b = FastExpo(y, k, prime) * m % prime
         ciphertext.append((cipher_text_a, cipher_text_b))
 
-    with open('encrypted/ciphertext.dat', 'wb') as f:
+    with open(output_path, 'wb') as f:
         pickle.dump(ciphertext, f)
-    print("File encrypted and saved as 'encrypted/ciphertext.dat'")
+    print("File encrypted and saved as {output_path}")
 
     return 'encrypted successfully'
 
