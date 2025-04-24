@@ -174,9 +174,8 @@ def RWhash(binary_message, key):
     return h
 
 
-def ElgamalSignature(input_path, private_key, signature_path='signture/output.sig'):
+def ElgamalSignature(input_path, private_key, signature_path='signature/output.sig'):
     prime, gen, x = private_key
-
     with open(input_path, 'rb') as f:
         message = f.read()
 
@@ -237,7 +236,7 @@ def ElgamalKeyGen(prime):
     save_key('keys/public_key.txt', public_key)
     return private_key, public_key
 
-def ElgamalEncrypt(input_path, pk, output_path='encrypted/ciphertext.dat', signature_path='signature/output.sig'):
+def ElgamalEncrypt(input_path, pk, output_path='encrypted/ciphertext.dat', signature_path='encrypted/output.sig'):
     prime, generator, y = pk
 
     with open(input_path, 'rb') as f:
@@ -256,7 +255,7 @@ def ElgamalEncrypt(input_path, pk, output_path='encrypted/ciphertext.dat', signa
     print(f"File encrypted and saved as {output_path}")
 
     private_key = load_key('keys/private_key.txt')
-    ElgamalSignature(input_path, private_key, 'signature/output.sig')
+    ElgamalSignature(input_path, private_key, signature_path)
     return 'encrypted successfully'
 
 def ElgamalDecrypt(cipher_path, private_key, output_path, signature_path='from_sender/output.sig'):
