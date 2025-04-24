@@ -174,7 +174,7 @@ def RWhash(binary_message, key):
     return h
 
 
-def ElgamalSignature(input_path, private_key, signature_path='signture/sig.'):
+def ElgamalSignature(input_path, private_key, signature_path='signture/output.sig'):
     prime, gen, x = private_key
 
     with open(input_path, 'rb') as f:
