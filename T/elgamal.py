@@ -180,7 +180,7 @@ def ElgamalSignature(input_path, private_key, signature_path='signture/sig.'):
     with open(input_path, 'rb') as f:
         message = f.read()
 
-    h = int(RWhash(message, (prime, gen, x)), 18)
+    h = int(RWhash(message, (prime, gen, x)), 16)
 
     k = get_coprime(prime)
 
