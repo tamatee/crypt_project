@@ -3,7 +3,7 @@ from prime import GenPrime, GenerateGenerator
 import os
 
 os.makedirs('signature', exist_ok=True)
-key_size = int(input("Enter key size (e.g., 512, 1024): "))
+key_size = int(input("Enter key size: "))
 prime = GenPrime(key_size)
 input_filename = input("Enter input filename (e.g., message.txt): ")
 output_filename = "decrypted/" + input("Enter output filename for decrypted file (e.g., output_message): ")
