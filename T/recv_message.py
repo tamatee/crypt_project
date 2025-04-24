@@ -1,10 +1,7 @@
-from elgamal import ElgamalDecrypt
-from utils import load_key
+from elgamal import ElgamalDecrypt, load_key
 import os
 
 print("DECRYPTION")
-public_key = load_key('keys/private_key.txt')
+private_key = load_key('keys/private_key.txt')
 input_filename = input("file_name: ")
-os.makedirs('encrypted', exist_ok=True)
-ciphertext = ElgamalEncrypt(input_filename, public_key, output_path='encrypted/from_ciphertext.dat')
-print("Ciphertext (A,B):", ciphertext)
+ElgamalDecrypt(input_filename, private_key, 'from_decrypted.txt')

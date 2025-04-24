@@ -1,4 +1,4 @@
-import secrets, pickle
+import secrets, pickle, math
 
 def get_coprime(p):
     phi = p - 1
@@ -258,7 +258,7 @@ def ElgamalEncrypt(input_path, pk, output_path='encrypted/ciphertext.dat', signa
 
     return 'encrypted successfully'
 
-def ElgamalDecrypt(cipher_path, private_key, output_path):
+def ElgamalDecrypt(cipher_path, private_key, output_path, signature_path='from_sender/output.sig'):
     prime, generator, u = private_key
 
     with open(cipher_path, 'rb') as f:
@@ -274,7 +274,7 @@ def ElgamalDecrypt(cipher_path, private_key, output_path):
     with open(output_path, 'wb') as f:
         f.write(plaintext_bytes)
     print(f"File decrypted and saved as {output_path}")
-    public_key = load_key('keys/public_key.txt')
-    is_valid = ElgamalVerification(output_path, public_key, 'signature/output.sig')
+    public_key = load_key('recv_keys/public_key.txt')
+    is_valid = ElgamalVerification(output_path, public_key, signature_path)
     print("Signature valid:", is_valid)
     return 'decrypted successfully'
