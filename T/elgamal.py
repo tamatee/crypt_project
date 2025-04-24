@@ -33,7 +33,6 @@ def ElgamalEncrypt(input_path, pk, output_path='encrypted/ciphertext.dat'):
 
     private_key = load_key('keys/private_key.txt')
     ElgamalSignature(input_path, private_key, 'signature/output.sig')
-    print(f"Signature saved to signature/output.sig")
 
     return 'encrypted successfully'
 
