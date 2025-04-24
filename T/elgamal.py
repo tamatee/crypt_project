@@ -1,5 +1,6 @@
 from utils import *
 from prime import GenerateGenerator
+from elgamal_signature import ElgamalSignature, ElgamalVerification
 
 def ElgamalKeyGen(prime):
     secret_num = secrets.randbelow(prime)
@@ -28,7 +29,11 @@ def ElgamalEncrypt(input_path, pk, output_path='encrypted/ciphertext.dat'):
 
     with open(output_path, 'wb') as f:
         pickle.dump(ciphertext, f)
-    print("File encrypted and saved as {output_path}")
+    print(f"File encrypted and saved as {output_path}")
+
+    private_key = load_key('keys/private_key.txt')
+    ElgamalSignature(input_path, private_key, 'signature/output.sig')
+    print(f"Signature saved to signature/output.sig")
 
     return 'encrypted successfully'
 
@@ -47,6 +52,8 @@ def ElgamalDecrypt(cipher_path, private_key, output_path):
 
     with open(output_path, 'wb') as f:
         f.write(plaintext_bytes)
-    print(f"File decrypted and saved as '{output_path}'")
-
+    print(f"File decrypted and saved as {output_path}")
+    public_key = load_key('keys/public_key.txt')
+    is_valid = ElgamalVerification(output_path, public_key, 'signature/output.sig')
+    print("Signature valid:", is_valid)
     return 'decrypted successfully'
