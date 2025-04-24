@@ -169,7 +169,9 @@ def RWhash(binary_message, key):
     for b in block_values:
         H = compression_function(H, b, prime)
 
-    return H
+    h = hex(H)
+    print(f"Hash value: {h}")
+    return h
 
 
 def ElgamalSignature(input_path, private_key, signature_path='signture/sig.'):
@@ -178,7 +180,7 @@ def ElgamalSignature(input_path, private_key, signature_path='signture/sig.'):
     with open(input_path, 'rb') as f:
         message = f.read()
 
-    h = RWhash(message, (prime, gen, x))
+    h = int(RWhash(message, (prime, gen, x)), 18)
 
     k = get_coprime(prime)
 
@@ -255,7 +257,6 @@ def ElgamalEncrypt(input_path, pk, output_path='encrypted/ciphertext.dat', signa
 
     private_key = load_key('keys/private_key.txt')
     ElgamalSignature(input_path, private_key, 'signature/output.sig')
-
     return 'encrypted successfully'
 
 def ElgamalDecrypt(cipher_path, private_key, output_path, signature_path='from_sender/output.sig'):
