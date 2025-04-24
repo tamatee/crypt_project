@@ -200,7 +200,7 @@ def ElgamalVerification(input_path, public_key, signature_path):
     with open(input_path, 'rb') as f:
         message = f.read()
 
-    h = RWhash(message, (prime, gen, 0))  # secret x not needed for hashing
+    h = int(RWhash(message, (prime, gen, 0)), 16)  # secret x not needed for hashing
 
     if not (0 < r < prime):
         return False
